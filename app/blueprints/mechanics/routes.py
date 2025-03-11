@@ -2,9 +2,8 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select
-from app.extensions import db
 from . import mechanics_bp
-from app.models import Mechanic
+from app.models import Mechanic, db
 from .schemas import mechanic_schema, mechanics_schema
 
 
@@ -57,14 +56,14 @@ def update_mechanic(mechanic_id):
         return jsonify({"message": "Invalid mechanic ID"}), 404
 
     try:
-        mechanic_data = mechanic_schema.load(request.json)
+        mechanic_data = mechanic_schema.load(request.json, partial=True)
     except ValidationError as e:
         return jsonify(e.messages), 400
 
-    mechanic.name = mechanic_data['name']
-    mechanic.email = mechanic_data['email']
-    mechanic.phone = mechanic_data['phone']
-    mechanic.salary = mechanic_data['salary'] 
+    mechanic.name = mechanic_data.get('name') or mechanic.name
+    mechanic.email = mechanic_data.get('email') or mechanic.email
+    mechanic.phone = mechanic_data.get('phone') or mechanic.phone
+    mechanic.salary = mechanic_data.get('salary') or mechanic.salary
 
     db.session.commit()
 
@@ -78,6 +77,10 @@ def delete_mechanic(mechanic_id):
 
     if not mechanic:
         return jsonify({"message": "Invalid mechanic ID"}), 404
+
+    # Set mechanic_id to NULL for related service mechanics
+    for service_mechanic in mechanic.mechanic_tickets:
+        service_mechanic.mechanic_id = None
 
     db.session.delete(mechanic)
     db.session.commit()

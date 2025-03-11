@@ -1,7 +1,16 @@
-from typing import List
+from typing import List, Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.extensions import Base, db
-import datetime
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
+from datetime import date
+
+
+# Create a base class for our models
+class Base(DeclarativeBase):
+    pass
+
+# Instantiate your SQLAlchemy database
+db = SQLAlchemy(model_class = Base)
 
 
 # Define Customer model
@@ -14,7 +23,7 @@ class Customer(Base):
     phone: Mapped[str] = mapped_column(db.String(100), nullable=False)
 
     # One-to-Many Relationship (Customer -> ServiceTickets)
-    service_tickets: Mapped[List['ServiceTicket']] = relationship("ServiceTicket", back_populates="customer", lazy="select")
+    service_tickets: Mapped[Optional[List['ServiceTicket']]] = db.relationship("ServiceTicket", back_populates="customer", lazy="select")
 
 
 # Define Mechanic model
@@ -28,7 +37,7 @@ class Mechanic(Base):
     salary: Mapped[float] = mapped_column(db.Float, nullable=False)
 
     # Many-to-Many Relationship (Mechanic <-> ServiceTickets via ServiceMechanic)
-    mechanic_tickets: Mapped[List['ServiceMechanic']] = relationship("ServiceMechanic", back_populates="mechanic", lazy="select")
+    mechanic_tickets: Mapped[Optional[List['ServiceMechanic']]] = db.relationship("ServiceMechanic", back_populates="mechanic", lazy="select")
 
 
 # Define ServiceTicket model
@@ -36,26 +45,27 @@ class ServiceTicket(Base):
     __tablename__ = 'service_tickets'
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    service_date: Mapped[datetime.datetime] = mapped_column(nullable=False)
+    VIN: Mapped[str] = mapped_column(db.String(100), nullable=False)
+    service_date: Mapped[date] = mapped_column(nullable=False)
     service_desc: Mapped[str] = mapped_column(db.String(255), nullable=False)
-    customer_id: Mapped[int] = mapped_column(db.ForeignKey('customers.id'), nullable=False)
+    customer_id: Mapped[Optional[int]] = mapped_column(db.ForeignKey('customers.id', ondelete='SET NULL'), nullable=True)
 
     # One-to-Many Relationship (ServiceTicket -> Customer)
-    customer: Mapped['Customer'] = relationship("Customer", back_populates="service_tickets")
+    customer: Mapped[Optional['Customer']] = relationship("Customer", back_populates="service_tickets")
     
     # Many-to-Many Relationship (ServiceTicket <-> Mechanics via ServiceMechanic)
-    service_mechanics: Mapped[List['ServiceMechanic']] = relationship("ServiceMechanic", back_populates="service_ticket", lazy="select")
+    service_mechanics: Mapped[List['ServiceMechanic']] = db.relationship("ServiceMechanic", back_populates="service_ticket", lazy="select", cascade="all, delete-orphan")
 
 
 # Define ServiceMechanic model (Join Table)
 class ServiceMechanic(Base):  
     __tablename__ = 'service_mechanics'  
 
-    # Composite Primary Key: (service_ticket_id, mechanic_id)
-    service_ticket_id: Mapped[int] = mapped_column(db.ForeignKey('service_tickets.id'), primary_key=True)
-    mechanic_id: Mapped[int] = mapped_column(db.ForeignKey('mechanics.id'), primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    service_ticket_id: Mapped[int] = mapped_column(db.ForeignKey('service_tickets.id'))
+    mechanic_id: Mapped[Optional[int]] = mapped_column(db.ForeignKey('mechanics.id', ondelete='SET NULL'), nullable=True)
 
     # Relationships
-    service_ticket: Mapped['ServiceTicket'] = relationship("ServiceTicket", back_populates="service_mechanics")
-    mechanic: Mapped['Mechanic'] = relationship("Mechanic", back_populates="service_mechanics")
+    service_ticket: Mapped['ServiceTicket'] = db.relationship("ServiceTicket", back_populates="service_mechanics")
+    mechanic: Mapped[Optional['Mechanic']] = db.relationship("Mechanic", back_populates="mechanic_tickets")
 

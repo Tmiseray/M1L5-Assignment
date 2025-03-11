@@ -1,10 +1,9 @@
 
 from flask import jsonify, request
 from marshmallow import ValidationError
-from sqlalchemy import select
-from app.extensions import db
+from sqlalchemy import select, delete
 from . import customers_bp
-from app.models import Customer
+from app.models import Customer, db
 from .schemas import customer_schema, customers_schema
 
 
@@ -56,13 +55,13 @@ def update_customer(customer_id):
         return jsonify({"message": "Invalid customer ID"}), 404
 
     try:
-        customer_data = customer_schema.load(request.json)
+        customer_data = customer_schema.load(request.json, partial=True)
     except ValidationError as e:
         return jsonify(e.messages), 400
 
-    customer.name = customer_data['name']
-    customer.email = customer_data['email']
-    customer.phone = customer_data['phone']
+    customer.name = customer_data.get('name') or customer.name
+    customer.email = customer_data.get('email') or customer.email
+    customer.phone = customer_data.get('phone') or customer.phone
 
     db.session.commit()
 
@@ -76,6 +75,10 @@ def delete_customer(customer_id):
 
     if not customer:
         return jsonify({"message": "Invalid customer ID"}), 404
+
+    # Set customer_id to NULL for related service tickets
+    for service_ticket in customer.service_tickets:
+        service_ticket.customer_id = None
 
     db.session.delete(customer)
     db.session.commit()

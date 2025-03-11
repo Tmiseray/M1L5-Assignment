@@ -1,9 +1,8 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select
-from app.extensions import db
 from . import service_tickets_bp
-from app.models import ServiceTicket, ServiceMechanic, Mechanic
+from app.models import ServiceTicket, ServiceMechanic, Mechanic, db
 from .schemas import service_ticket_schema, service_tickets_schema
 
 
@@ -22,13 +21,18 @@ def create_service_ticket():
         customer_id=service_ticket_data['customer_id']
     )
 
-    # Add mechanics (Many-to-Many via ServiceMechanic)
-    for mechanic_id in service_ticket_data['mechanic_ids']:
-        mechanic = db.session.get(Mechanic, mechanic_id)
-        if mechanic:
-            new_service_ticket.service_mechanics.append(ServiceMechanic(mechanic=mechanic))
-
     db.session.add(new_service_ticket)
+    db.session.commit()
+
+    # Add mechanics (Many-to-Many via ServiceMechanic)
+    service_mechanic_instances = []
+    for mechanic_id in service_ticket_data['service_mechanics_ids']:
+        mechanic = db.session.get(Mechanic, mechanic_id)
+        if mechanic is not None:
+            service_mechanic_instance = ServiceMechanic(service_ticket_id=new_service_ticket.id, mechanic_id=mechanic.id)
+            service_mechanic_instances.append(service_mechanic_instance)
+
+    new_service_ticket.service_mechanics.extend(service_mechanic_instances)
     db.session.commit()
 
     return jsonify(service_ticket_schema.dump(new_service_ticket)), 201
@@ -62,23 +66,26 @@ def update_service_ticket(service_ticket_id):
         return jsonify({"message": "Invalid service_ticket ID"}), 404
 
     try:
-        service_ticket_data = service_ticket_schema.load(request.json)
+        service_ticket_data = service_ticket_schema.load(request.json, partial=True)
     except ValidationError as e:
         return jsonify(e.messages), 400
 
     # Update basic fields
-    service_ticket.VIN = service_ticket_data['VIN']
-    service_ticket.service_date = service_ticket_data['service_date']
-    service_ticket.service_desc = service_ticket_data['service_desc']
-    service_ticket.customer_id = service_ticket_data['customer_id']
+    service_ticket.VIN = service_ticket_data.get('VIN') or service_ticket.VIN
+    service_ticket.service_date = service_ticket_data.get('service_date') or service_ticket.service_date
+    service_ticket.service_desc = service_ticket_data.get('service_desc') or service_ticket.service_desc
+    service_ticket.customer_id = service_ticket_data.get('customer_id') or service_ticket.customer_id
 
     # Update mechanics (Clear & Re-add)
     service_ticket.service_mechanics.clear()
-    for mechanic_id in service_ticket_data['mechanic_ids']:
+    service_mechanic_instances = []
+    for mechanic_id in service_ticket_data['service_mechanics_ids']:
         mechanic = db.session.get(Mechanic, mechanic_id)
-        if mechanic:
-            service_ticket.service_mechanics.append(ServiceMechanic(mechanic=mechanic))
+        if mechanic is not None:
+            service_mechanic_instance = ServiceMechanic(service_ticket_id=service_ticket.id, mechanic_id=mechanic.id)
+            service_mechanic_instances.append(service_mechanic_instance)
 
+    service_ticket.service_mechanics.extend(service_mechanic_instances)
     db.session.commit()
 
     return jsonify(service_ticket_schema.dump(service_ticket)), 200
