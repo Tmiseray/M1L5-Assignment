@@ -1,9 +1,8 @@
 # M1L5-Assignment
  Coding Temple: Module 1, Lesson 5 - Python Back End Specialization
 
-# M1L5-Assignment
-
-This project is a Flask-based web application designed to manage mechanics, customers, and service tickets. It utilizes Flask Blueprints for modularization and Marshmallow for object serialization and deserialization.
+This project is a Flask-based web application designed to manage mechanics, customers, and service tickets. 
+It utilizes Flask Blueprints for modularization and Marshmallow for object serialization and deserialization.
 
 ## Project Structure
 
