@@ -1,0 +1,1650 @@
+{
+	"info": {
+		"_postman_id": "15b527e7-fa58-4e10-92f1-e2a4a1ad378c",
+		"name": "Mechanic Shop Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38007177"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"phone\": \"1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create cust1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"phone\": \"1234567890\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:03:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"jane.doe@example.com\",\n    \"id\": 1,\n    \"name\": \"Jane Doe\",\n    \"phone\": \"1234567890\",\n    \"service_tickets\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Customers",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:03:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"email\": \"jane.doe@example.com\",\n        \"id\": 1,\n        \"name\": \"Jane Doe\",\n        \"phone\": \"1234567890\",\n        \"service_tickets\": []\n    }\n]"
+						},
+						{
+							"name": "After deletion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:14:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:04:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"jane.doe@example.com\",\n    \"id\": 1,\n    \"name\": \"Jane Doe\",\n    \"phone\": \"1234567890\",\n    \"service_tickets\": []\n}"
+						},
+						{
+							"name": "Includes service details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:11:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "264"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"juliet.doe@example.com\",\n    \"id\": 1,\n    \"name\": \"Juliet Doe\",\n    \"phone\": \"9876543210\",\n    \"service_tickets\": [\n        {\n            \"VIN\": \"JANE1234567890\",\n            \"id\": 1,\n            \"service_date\": \"2025-01-15\",\n            \"service_desc\": \"basic description\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Juliet Doe\",\n    \"email\": \"juliet.doe@example.com\",\n    \"phone\": \"9876543210\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update cust1's name, email, & #",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Juliet Doe\",\n    \"email\": \"juliet.doe@example.com\",\n    \"phone\": \"9876543210\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:04:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "125"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"juliet.doe@example.com\",\n    \"id\": 1,\n    \"name\": \"Juliet Doe\",\n    \"phone\": \"9876543210\",\n    \"service_tickets\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete cust1",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/customers/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:14:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Customer deleted\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Mechanics",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jim Beam\",\n    \"email\": \"jim.beam@example.com\",\n    \"phone\": \"9876543210\",\n    \"salary\": 40.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create mech1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"1234567890\",\n    \"salary\": 50.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:05:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"john.doe@example.com\",\n    \"id\": 1,\n    \"mechanic_tickets\": [],\n    \"name\": \"John Doe\",\n    \"phone\": \"1234567890\",\n    \"salary\": 50\n}"
+						},
+						{
+							"name": "Create mech2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Jim Beam\",\n    \"email\": \"jim.beam@example.com\",\n    \"phone\": \"9876543210\",\n    \"salary\": 40.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:05:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"jim.beam@example.com\",\n    \"id\": 2,\n    \"mechanic_tickets\": [],\n    \"name\": \"Jim Beam\",\n    \"phone\": \"9876543210\",\n    \"salary\": 40\n}"
+						}
+					]
+				},
+				{
+					"name": "All Mechanics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Mechanics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:06:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "317"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"email\": \"john.doe@example.com\",\n        \"id\": 1,\n        \"mechanic_tickets\": [],\n        \"name\": \"John Doe\",\n        \"phone\": \"1234567890\",\n        \"salary\": 50\n    },\n    {\n        \"email\": \"jim.beam@example.com\",\n        \"id\": 2,\n        \"mechanic_tickets\": [],\n        \"name\": \"Jim Beam\",\n        \"phone\": \"9876543210\",\n        \"salary\": 40\n    }\n]"
+						},
+						{
+							"name": "After deletion of mech1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:13:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "369"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"email\": \"jimmy@example.com\",\n        \"id\": 2,\n        \"mechanic_tickets\": [\n            {\n                \"service_ticket\": {\n                    \"VIN\": \"JANE1234567890\",\n                    \"service_date\": \"2025-01-15\",\n                    \"service_desc\": \"basic description\"\n                },\n                \"service_ticket_id\": 1\n            }\n        ],\n        \"name\": \"Jim Beam\",\n        \"phone\": \"3210987654\",\n        \"salary\": 50\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:06:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"jim.beam@example.com\",\n    \"id\": 2,\n    \"mechanic_tickets\": [],\n    \"name\": \"Jim Beam\",\n    \"phone\": \"9876543210\",\n    \"salary\": 40\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"email\": \"jimmy@example.com\",\n    \"phone\": \"3210987654\",\n    \"salary\": 50.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update mech2's # & email",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"email\": \"jimmy@example.com\",\n    \"phone\": \"3210987654\",\n    \"salary\": 50.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:06:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "137"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"jimmy@example.com\",\n    \"id\": 2,\n    \"mechanic_tickets\": [],\n    \"name\": \"Jim Beam\",\n    \"phone\": \"3210987654\",\n    \"salary\": 50\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete mech1",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/mechanics/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:12:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Mechanic deleted\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ServiceTickets",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"VIN\": \"JANE1234567890\",\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"oil change, tire rotation\",\n    \"customer_id\": 1,\n    \"service_mechanics_ids\": [1, 2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service_tickets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service_tickets",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initial ticket w/2 mechs",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"VIN\": \"JANE1234567890\",\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"oil change, tire rotation\",\n    \"customer_id\": 1,\n    \"service_mechanics_ids\": [1, 2]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:07:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "478"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"VIN\": \"JANE1234567890\",\n    \"customer\": {\n        \"email\": \"juliet.doe@example.com\",\n        \"id\": 1,\n        \"name\": \"Juliet Doe\",\n        \"phone\": \"9876543210\"\n    },\n    \"customer_id\": 1,\n    \"id\": 1,\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"oil change, tire rotation\",\n    \"service_mechanics\": [\n        {\n            \"mechanic\": {\n                \"name\": \"John Doe\"\n            },\n            \"mechanic_id\": 1\n        },\n        {\n            \"mechanic\": {\n                \"name\": \"Jim Beam\"\n            },\n            \"mechanic_id\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "All Service Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/service_tickets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service_tickets",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Service Tickets",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:07:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "536"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"VIN\": \"JANE1234567890\",\n        \"customer\": {\n            \"email\": \"juliet.doe@example.com\",\n            \"id\": 1,\n            \"name\": \"Juliet Doe\",\n            \"phone\": \"9876543210\"\n        },\n        \"customer_id\": 1,\n        \"id\": 1,\n        \"service_date\": \"2025-01-15\",\n        \"service_desc\": \"oil change, tire rotation\",\n        \"service_mechanics\": [\n            {\n                \"mechanic\": {\n                    \"name\": \"John Doe\"\n                },\n                \"mechanic_id\": 1\n            },\n            {\n                \"mechanic\": {\n                    \"name\": \"Jim Beam\"\n                },\n                \"mechanic_id\": 2\n            }\n        ]\n    }\n]"
+						},
+						{
+							"name": "After deletion of mech1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:13:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "495"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"VIN\": \"JANE1234567890\",\n        \"customer\": {\n            \"email\": \"juliet.doe@example.com\",\n            \"id\": 1,\n            \"name\": \"Juliet Doe\",\n            \"phone\": \"9876543210\"\n        },\n        \"customer_id\": 1,\n        \"id\": 1,\n        \"service_date\": \"2025-01-15\",\n        \"service_desc\": \"basic description\",\n        \"service_mechanics\": [\n            {\n                \"mechanic\": null,\n                \"mechanic_id\": null\n            },\n            {\n                \"mechanic\": {\n                    \"name\": \"Jim Beam\"\n                },\n                \"mechanic_id\": 2\n            }\n        ]\n    }\n]"
+						},
+						{
+							"name": "After deletion of mech1 & cust1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:14:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "383"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"VIN\": \"JANE1234567890\",\n        \"customer\": null,\n        \"customer_id\": null,\n        \"id\": 1,\n        \"service_date\": \"2025-01-15\",\n        \"service_desc\": \"basic description\",\n        \"service_mechanics\": [\n            {\n                \"mechanic\": null,\n                \"mechanic_id\": null\n            },\n            {\n                \"mechanic\": {\n                    \"name\": \"Jim Beam\"\n                },\n                \"mechanic_id\": 2\n            }\n        ]\n    }\n]"
+						},
+						{
+							"name": "After deletion on ticket1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:15:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "Ticket by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/service_tickets/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service_tickets",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ticket by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:07:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "478"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"VIN\": \"JANE1234567890\",\n    \"customer\": {\n        \"email\": \"juliet.doe@example.com\",\n        \"id\": 1,\n        \"name\": \"Juliet Doe\",\n        \"phone\": \"9876543210\"\n    },\n    \"customer_id\": 1,\n    \"id\": 1,\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"oil change, tire rotation\",\n    \"service_mechanics\": [\n        {\n            \"mechanic\": {\n                \"name\": \"John Doe\"\n            },\n            \"mechanic_id\": 1\n        },\n        {\n            \"mechanic\": {\n                \"name\": \"Jim Beam\"\n            },\n            \"mechanic_id\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"VIN\": \"\",\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"basic description\",\n    \"customer_id\": 1,\n    \"service_mechanics_ids\": [1, 2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service_tickets/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service_tickets",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update to 1 mech",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"VIN\": \"\",\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"basic description\",\n    \"customer_id\": 1,\n    \"service_mechanics_ids\": [2]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:08:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "378"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"VIN\": \"JANE1234567890\",\n    \"customer\": {\n        \"email\": \"juliet.doe@example.com\",\n        \"id\": 1,\n        \"name\": \"Juliet Doe\",\n        \"phone\": \"9876543210\"\n    },\n    \"customer_id\": 1,\n    \"id\": 1,\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"basic description\",\n    \"service_mechanics\": [\n        {\n            \"mechanic\": {\n                \"name\": \"Jim Beam\"\n            },\n            \"mechanic_id\": 2\n        }\n    ]\n}"
+						},
+						{
+							"name": "Update w/2 mechs for deletion example",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"VIN\": \"\",\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"basic description\",\n    \"customer_id\": 1,\n    \"service_mechanics_ids\": [1, 2]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:08:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "470"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"VIN\": \"JANE1234567890\",\n    \"customer\": {\n        \"email\": \"juliet.doe@example.com\",\n        \"id\": 1,\n        \"name\": \"Juliet Doe\",\n        \"phone\": \"9876543210\"\n    },\n    \"customer_id\": 1,\n    \"id\": 1,\n    \"service_date\": \"2025-01-15\",\n    \"service_desc\": \"basic description\",\n    \"service_mechanics\": [\n        {\n            \"mechanic\": {\n                \"name\": \"John Doe\"\n            },\n            \"mechanic_id\": 1\n        },\n        {\n            \"mechanic\": {\n                \"name\": \"Jim Beam\"\n            },\n            \"mechanic_id\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/service_tickets/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service_tickets",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete service ticket1",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:5000/service_tickets/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.1.3 Python/3.12.5"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 00:15:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Service ticket deleted\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
