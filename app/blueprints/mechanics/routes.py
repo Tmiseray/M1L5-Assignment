@@ -4,6 +4,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from . import mechanics_bp
 from app.models import Mechanic, db
+from app.extensions import limiter, cache
 from .schemas import mechanic_schema, mechanics_schema
 
 
@@ -30,6 +31,12 @@ def create_mechanic():
 
 # Get all mechanics
 @mechanics_bp.route('/', methods=['GET'])
+@limiter.limit("10 per hour")
+# Limit the number of retrievals to 10 per hour
+# There shouldn't be a need to retrieve all mechanics more than 10 per hour
+@cache.cached(timeout=60)
+# Cache the response for 60 seconds
+# This will help reduce the load on the database
 def get_mechanics():
     query = select(Mechanic)
     result = db.session.execute(query).scalars().all()
@@ -38,6 +45,9 @@ def get_mechanics():
 
 # Get single mechanic
 @mechanics_bp.route('/<int:mechanic_id>', methods=['GET'])
+@limiter.limit("10 per hour")
+# Limit the number of retrievals to 10 per hour
+# There shouldn't be a need to retrieve a single mechanic more than 10 per hour
 def get_mechanic(mechanic_id):
     mechanic = db.session.get(Mechanic, mechanic_id)
 
