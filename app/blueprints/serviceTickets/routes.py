@@ -30,6 +30,7 @@ def create_service_ticket():
         mechanic = db.session.get(Mechanic, mechanic_id)
         if mechanic is not None:
             service_mechanic_instance = ServiceMechanic(service_ticket_id=new_service_ticket.id, mechanic_id=mechanic.id)
+            db.session.add(service_mechanic_instance)
             service_mechanic_instances.append(service_mechanic_instance)
 
     new_service_ticket.service_mechanics.extend(service_mechanic_instances)
