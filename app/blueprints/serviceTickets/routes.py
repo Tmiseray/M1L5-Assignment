@@ -5,6 +5,7 @@ from . import service_tickets_bp
 from app.models import ServiceTicket, ServiceMechanic, Mechanic, db
 from .schemas import service_ticket_schema, service_tickets_schema
 from app.extensions import limiter, cache
+from app.utils.util import token_required
 
 
 # Create service_ticket

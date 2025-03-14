@@ -43,3 +43,4 @@ class MechanicSchema(ma.SQLAlchemyAutoSchema):
 
 mechanic_schema = MechanicSchema()
 mechanics_schema = MechanicSchema(many=True)
+mechanic_login_schema = MechanicSchema(only=("email", "password"))

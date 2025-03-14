@@ -21,6 +21,7 @@ class Customer(Base):
     name: Mapped[str] = mapped_column(db.String(100), nullable=False)
     email: Mapped[str] = mapped_column(db.String(100), unique=True, nullable=False)
     phone: Mapped[str] = mapped_column(db.String(100), nullable=False)
+    password: Mapped[str] = mapped_column(db.String(100), nullable=False)
 
     # One-to-Many Relationship (Customer -> ServiceTickets)
     service_tickets: Mapped[Optional[List['ServiceTicket']]] = db.relationship("ServiceTicket", back_populates="customer", lazy="select")
@@ -35,6 +36,7 @@ class Mechanic(Base):
     email: Mapped[str] = mapped_column(db.String(100), unique=True, nullable=False)
     phone: Mapped[str] = mapped_column(db.String(100), nullable=False)
     salary: Mapped[float] = mapped_column(db.Float, nullable=False)
+    password: Mapped[str] = mapped_column(db.String(100), nullable=False)
 
     # Many-to-Many Relationship (Mechanic <-> ServiceTickets via ServiceMechanic)
     mechanic_tickets: Mapped[Optional[List['ServiceMechanic']]] = db.relationship("ServiceMechanic", back_populates="mechanic", lazy="select")

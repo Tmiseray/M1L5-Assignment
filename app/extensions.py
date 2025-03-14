@@ -9,7 +9,7 @@ from flask_caching import Cache
 ma = Marshmallow()
 
 # Instantiate your Limiter object
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_remote_address, default_limits=["20 per hour"])
 
 # Instantiate your Cache object
 cache = Cache()

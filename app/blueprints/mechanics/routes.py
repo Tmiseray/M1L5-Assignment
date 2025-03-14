@@ -5,11 +5,17 @@ from sqlalchemy import select
 from . import mechanics_bp
 from app.models import Mechanic, db
 from app.extensions import limiter, cache
-from .schemas import mechanic_schema, mechanics_schema
+from .schemas import mechanic_schema, mechanics_schema, mechanic_login_schema
+from app.utils.util import encode_token
+
+
 
 
 # Create Mechanic
 @mechanics_bp.route('/', methods=['POST'])
+@limiter.limit("3 per hour")
+# Limit the number of mechanic creations to 3 per hour
+# There shouldn't be a need to create more than 3 mechanics per hour
 def create_mechanic():
     try:
         mechanic_data = mechanic_schema.load(request.json)
@@ -20,7 +26,8 @@ def create_mechanic():
         name=mechanic_data['name'],
         email=mechanic_data['email'],
         phone=mechanic_data['phone'],
-        salary=mechanic_data['salary'] 
+        salary=mechanic_data['salary'],
+        password=mechanic_data['password'] 
     )
 
     db.session.add(new_mechanic)

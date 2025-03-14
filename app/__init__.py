@@ -24,11 +24,7 @@ def create_app(config_name):
     # Registering our blueprints
     app.register_blueprint(customers_bp, url_prefix='/customers')
     app.register_blueprint(mechanics_bp, url_prefix='/mechanics')
-    app.register_blueprint(service_tickets_bp, url_prefix='/service_tickets')
-
-    # Adding default limit for all routes
-    # This ensures that all routes are limited by default
-    limiter.limit("30 per hour")(app)
+    app.register_blueprint(service_tickets_bp, url_prefix='/service-tickets')
 
 
     return app
