@@ -3,8 +3,9 @@ from flask import jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select, delete
 from . import customers_bp
-from app.models import Customer, db
+from app.models import Customer, db, ServiceTicket
 from .schemas import customer_schema, customers_schema, customer_login_schema
+from app.blueprints.serviceTickets.schemas import service_tickets_schema
 from app.extensions import limiter, cache
 from app.utils.util import encode_token, token_required
 
@@ -131,13 +132,12 @@ def delete_customer(customer_id):
 
 # Get customer's service tickets
 @customers_bp.route('/my-service-tickets', methods=['GET'])
-@limiter.limit("10 per hour")
+# @limiter.limit("10 per hour")
 # Limit the number of retrievals to 10 per hour
 # There shouldn't be a need to retrieve a customer's service tickets more than 10 per hour
 @token_required
-def get_my_service_tickets(current_customer):
-    query = select(Customer).where(Customer.id == current_customer.id)
-    customer = db.session.execute(query).scalar_one_or_none()
+def get_my_service_tickets(customer_id):
+    query = select(ServiceTicket).where(ServiceTicket.customer_id == customer_id)
+    service_tickets = db.session.execute(query).scalars().all()
 
-    service_tickets = customer.service_tickets
-    return jsonify(customer_schema.dump(service_tickets)), 200
+    return jsonify(service_tickets_schema.dump(service_tickets)), 200
