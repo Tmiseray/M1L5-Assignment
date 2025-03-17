@@ -45,9 +45,17 @@ def create_mechanic():
 # Cache the response for 60 seconds
 # This will help reduce the load on the database
 def get_mechanics():
-    query = select(Mechanic)
-    result = db.session.execute(query).scalars().all()
-    return jsonify(mechanics_schema.dump(result)), 200
+    try:
+        page = int(request.args.get('page'))
+        per_page = int(request.args.get('per_page'))
+
+        query = select(Mechanic)
+        result = db.paginate(query, page=page, per_page=per_page)
+        return jsonify(mechanics_schema.dump(result)), 200
+    except:
+        query = select(Mechanic)
+        result = db.session.execute(query).scalars().all()
+        return jsonify(mechanics_schema.dump(result)), 200
 
 
 # Get single mechanic
@@ -103,3 +111,16 @@ def delete_mechanic(mechanic_id):
     db.session.commit()
 
     return jsonify({"message": "Mechanic deleted"}), 200
+
+
+# Top Earners
+@mechanics_bp.route('/top_earners', methods=['GET'])
+@limiter.limit("10 per hour")
+# Limit the number of retrievals to 10 per hour
+# There shouldn't be a need to retrieve the top earners more
+# than 10 times per hour
+def get_top_earners():
+    query = select(Mechanic)
+    mechanics = db.session.execute(query).scalars().all()
+    mechanics.sort(key=lambda m: len(m.mechanic_tickets), reverse=True)
+    return jsonify(mechanics_schema.dump(mechanics)), 200

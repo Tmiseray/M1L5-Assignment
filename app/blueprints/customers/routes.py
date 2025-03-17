@@ -69,9 +69,17 @@ def create_customer():
 # Cache the response for 60 seconds
 # This will help reduce the load on the database
 def get_customers():
-    query = select(Customer)
-    result = db.session.execute(query).scalars().all()
-    return jsonify(customers_schema.dump(result)), 200
+    try:
+        page = int(request.args.get('page'))
+        per_page = int(request.args.get('per_page'))
+
+        query = select(Customer)
+        result = db.paginate(query, page=page, per_page=per_page)
+        return jsonify(customers_schema.dump(result)), 200
+    except:
+        query = select(Customer)
+        result = db.session.execute(query).scalars().all()
+        return jsonify(customers_schema.dump(result)), 200
 
 
 # Get single customer
@@ -141,3 +149,4 @@ def get_my_service_tickets(customer_id):
     service_tickets = db.session.execute(query).scalars().all()
 
     return jsonify(service_tickets_schema.dump(service_tickets)), 200
+

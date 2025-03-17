@@ -53,9 +53,17 @@ def create_service_ticket():
 # Cache the response for 60 seconds
 # This will help reduce the load on the database
 def get_service_tickets():
-    query = select(ServiceTicket)
-    result = db.session.execute(query).scalars().all()
-    return jsonify(service_tickets_schema.dump(result)), 200
+    try:
+        page = int(request.args.get('page'))
+        per_page = int(request.args.get('per_page'))
+
+        query = select(ServiceTicket)
+        result = db.paginate(query, page=page, per_page=per_page)
+        return jsonify(service_tickets_schema.dump(result)), 200
+    except:
+        query = select(ServiceTicket)
+        result = db.session.execute(query).scalars().all()
+        return jsonify(service_tickets_schema.dump(result)), 200
 
 
 # Get single service_ticket
