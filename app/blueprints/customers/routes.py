@@ -7,7 +7,7 @@ from app.models import Customer, db, ServiceTicket
 from .schemas import customer_schema, customers_schema, customer_login_schema
 from app.blueprints.serviceTickets.schemas import service_tickets_schema
 from app.extensions import limiter, cache
-from app.utils.util import encode_token, token_required
+from app.utils.util import encode_token, token_required, mechanic_token_required
 
 
 # Customer Login
@@ -68,6 +68,8 @@ def create_customer():
 @cache.cached(timeout=60)
 # Cache the response for 60 seconds
 # This will help reduce the load on the database
+@mechanic_token_required
+# Only mechanics can retrieve all customers
 def get_customers():
     try:
         page = int(request.args.get('page'))
@@ -87,6 +89,8 @@ def get_customers():
 @limiter.limit("10 per hour")
 # Limit the number of retrievals to 10 per hour
 # There shouldn't be a need to retrieve a single customer more than 10 per hour
+@mechanic_token_required
+# Only mechanics can retrieve a single customer
 def get_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
 

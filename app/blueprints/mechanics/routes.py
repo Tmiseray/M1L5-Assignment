@@ -6,9 +6,33 @@ from . import mechanics_bp
 from app.models import Mechanic, db
 from app.extensions import limiter, cache
 from .schemas import mechanic_schema, mechanics_schema, mechanic_login_schema
-from app.utils.util import encode_token
+from app.utils.util import encode_mechanic_token, mechanic_token_required
 
 
+# Mechanic Login
+@mechanics_bp.route("/login", methods=['POST'])
+def login():
+    try:
+        credentials = mechanic_login_schema.load(request.json)
+        email = credentials['email']
+        password = credentials['password']
+    except KeyError:
+        return jsonify({'messages': 'Invalid payload, expecting email and password'}), 400
+    
+    query = select(Mechanic).where(Mechanic.email == email) 
+    mechanic = db.session.execute(query).scalar_one_or_none() 
+
+    if mechanic and mechanic.password == password: 
+        auth_token = encode_mechanic_token(mechanic.id, mechanic.role)
+
+        response = {
+            "status": "success",
+            "message": "Successfully Logged In",
+            "auth_token": auth_token
+        }
+        return jsonify(response), 200
+    else:
+        return jsonify({'messages': "Invalid email, password, or role"}), 401
 
 
 # Create Mechanic
@@ -74,6 +98,7 @@ def get_mechanic(mechanic_id):
 
 # Update a mechanic
 @mechanics_bp.route('/<int:mechanic_id>', methods=['PUT'])
+@mechanic_token_required
 def update_mechanic(mechanic_id):
     mechanic = db.session.get(Mechanic, mechanic_id)
 
@@ -97,6 +122,7 @@ def update_mechanic(mechanic_id):
 
 # Delete a mechanic
 @mechanics_bp.route('/<int:mechanic_id>', methods=['DELETE'])
+@mechanic_token_required
 def delete_mechanic(mechanic_id):
     mechanic = db.session.get(Mechanic, mechanic_id)
 
